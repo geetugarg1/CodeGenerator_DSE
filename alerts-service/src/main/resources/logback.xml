@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{ISO8601} logLevel=%-5level thread="%thread" logger=%logger{36} - %msg%n </pattern>
+		</encoder>		
+	</appender>
+
+<!-- comment the below logstacsh section when deploying on bluemix-->
+
+	<appender name="STASH"
+		class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>logstash:5001</destination>
+
+		<encoder
+			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<mdc />  
+				<context />
+				<version /> 
+				<logLevel />
+				<loggerName />
+
+				<pattern>
+					<pattern>
+						{
+						"servicename": "alerts-service"
+						}
+					</pattern>					
+				</pattern>
+
+				<threadName />
+				<message />
+				<logstashMarkers />
+				<stackTrace />
+			</providers>
+		</encoder>
+	</appender>
+	
+
+	<appender name="ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/alerts-service.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>alerts-service-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder
+			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<mdc /> <!-- MDC variables on the Thread will be written as JSON fields -->
+				<context /> <!--Outputs entries from logback's context -->
+				<version /> <!-- Logstash json format version, the @version field in the output -->
+				<logLevel />
+				<loggerName />
+
+				<pattern>
+					<pattern>
+						{
+						"serviceName": "alerts-service"
+						}
+					</pattern>
+				</pattern>
+
+				<threadName />
+				<message />
+				<logstashMarkers />
+				<stackTrace />
+			</providers>
+		</encoder>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ROLLING" />
+	</root>
+</configuration>

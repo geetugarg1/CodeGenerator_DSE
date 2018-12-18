@@ -1,0 +1,49 @@
+spring:  
+  application:
+    name: alerts-service
+  zipkin:
+    base-url: http://9.42.62.186:9411   
+  resources:
+    chain:
+      enabled: true
+  data:
+    redis:
+      host: 9.195.94.84
+      port: 6379
+      cache: 
+        expiry: 86400   #in sec
+      repositories:
+        enabled: false   
+  activemq:
+    broker-url: tcp://9.42.62.186:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: true
+  kafka:
+    bootstrap-servers: 9.42.62.186:9092
+    consumer:
+      group-id: message-group
+messaging:
+    provider: activemq
+    delay: 120000
+    topic: err-msg-topic
+    enabled: false       
+#eureka:
+  #client:
+    #healthcheck:
+      #enabled: true
+  #instance:
+    #healthCheckUrlPath: /health
+    #statusPageUrlPath: /info
+
+logging:
+  pattern:
+    level: "%5p %mdc"
+
+security:
+  basic:
+    enabled: false
+
+#httpBackend: 
+   #uri: http4://9.42.62.186:8989/payments/v1/paymenttransactions

@@ -1,0 +1,9 @@
+{
+"metrics": 
+        [
+            {"name": "http_success_total", "label_names": "http_success_total", "help_text": "successful http requests", "type": "counter"},
+            {"name": "http_failure_total", "label_names": "http_failure_total", "help_text": "failed http requests", "type": "counter"},
+            {"name": "http_get_total", "label_names": "http_get_total", "help_text": "total get requests", "type": "counter"},
+            {"name": "http_post_total", "label_names": "http_get_total", "help_text": "total get requests", "type": "counter"}
+        ]
+}

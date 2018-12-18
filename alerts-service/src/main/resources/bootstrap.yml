@@ -1,0 +1,39 @@
+spring:  
+  application:
+    name: alerts-service
+  profiles:
+    active: ${PROFILE}
+  sleuth:
+    sampler:
+      percentage: 1.0
+  cloud:      
+      config: 
+        uri: ${CONFIG_SERVER_URI}
+        failFast: true
+        retry:
+          maxAttempts: 20  
+
+  
+endpoints:
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+
+security:
+  basic:
+    enabled: false
+  encryption:
+    enabled: true
+    encryptionpath:
+    aesmkeyfile: "src/main/resources/aesSymKey.key"
+    desmkeyfile: "src/main/resources/desSymKey.key"
+    secconfig: "src/main/resources/secureConfig.json"
+
+management: 
+  security: 
+    enabled: false
+   
+audit:
+  enabled: false
+  db: false

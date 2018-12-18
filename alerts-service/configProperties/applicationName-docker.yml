@@ -1,0 +1,52 @@
+spring:
+  zipkin:
+    base-url: http://9.42.62.186:9411
+  sleuth:
+    sampler: 
+      probability: 1
+  data:
+    mongodb:
+     uri : mongodb://9.42.62.186:27017/alerts-service
+
+    redis:
+      host: 9.195.94.84
+      port: 6379
+      cache: 
+        expiry: 86400   #in sec
+      repositories:
+        enabled: false   
+  activemq:
+    broker-url: tcp://9.42.62.186:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: true
+  kafka:
+    bootstrap-servers: 9.42.62.186:9092
+    consumer:
+      group-id: message-group
+messaging:
+    provider: activemq
+    delay: 120000
+    topic: err-msg-topic
+    enabled: false   
+  #datasource:
+    #url: jdbc:mysql://mysql:3306/payments
+    #username: admin
+    #password: password
+    
+  #jpa:
+   #hibernate:
+     #ddl-auto: create   
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://eureka:8761/svcsdiscovery/eureka/
+      defaultZone: http://9.42.62.186:8761/eureka/
+  instance:
+    homePageUrl: http://alerts-service:8080/
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 10
+    hostname: alerts-service
+    nonSecurePort: 8080
+    instance-id: alerts-service

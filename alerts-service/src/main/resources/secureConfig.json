@@ -1,0 +1,8 @@
+{
+"encryption": {
+	"impltype":"AES_JWE",
+	"encryptpaths": [
+            {"name": "com.api.security.model.InputData", "fields": ["description","impact"]}
+            ]
+        }
+}

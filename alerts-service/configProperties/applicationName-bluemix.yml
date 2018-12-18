@@ -1,0 +1,47 @@
+spring:
+  #zipkin:
+    #base-url: http://172.17.0.1:9411
+       
+  datasource:
+    url: jdbc:mysql://us-cdbr-sl-dfw-01.cleardb.net/ibmx_6689d8c8cf46946
+    username: b2acbb16b5b077
+    password: c436cd17
+    
+  jpa:
+   hibernate:
+     ddl-auto: create
+  
+  data:
+    redis:
+      host: 9.195.94.84
+      port: 6379
+      cache: 
+        expiry: 86400   #in sec
+      repositories:
+        enabled: false   
+  activemq:
+    broker-url: tcp://9.42.41.87:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: true
+  kafka:
+    bootstrap-servers: 9.42.41.87:9092
+    consumer:
+      group-id: message-group
+messaging:
+    provider: activemq
+    delay: 120000
+    topic: err-msg-topic
+    enabled: false    
+     
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://eurekaserver2.mybluemix.net/eureka/
+  instance:
+    homePageUrl: https://alerts-service.mybluemix.net/
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 10
+    hostname: alerts-service
+    nonSecurePort: 8085
