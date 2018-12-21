@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  description: This is swager file to retrieve the alerts of the customers.
+  version: 1.0.0
+  title: Customer Alerts
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: geetu.garg@in.ibm.com
+paths:
+  '/customerreferencedatamanagement/customermanager/customer/{customerid}/alerts':
+    get:
+      tags:
+        - Alerts
+      summary: Retrieve Customer Alerts
+      description: Retrieve Customer Alerts
+      operationId: alerts
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: path
+          name: customerid
+          description: ID of customer for which to return alerts
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: An array of alert type objects
+          schema:
+            $ref: '#/definitions/AlertObject'
+definitions:
+  AlertObject:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        alertType:
+          type: string
+      xml:
+        name: AlertObject
+ 
